@@ -39,16 +39,15 @@ $(eval LIBS += $(DEP))
 
 all: 
 	$(foreach dep,$(PDEP), $(if $(shell make -C $(dep) CFLAGS=$(CFLAGS) &> /dev/null), $(eval )))
-	echo sdfsd
-	$(MAKE) $(NAME)
+	@$(MAKE) -s $(NAME)
 %.o: %.c
-	$(CC) $(WFLAGS) $(CFLAGS) $(INCDIRS) -c $^
+	@$(CC) $(WFLAGS) $(CFLAGS) $(INCDIRS) -c $^
 	@$(ECHO) "\033[0;32m[✓] Built C object" $@
 minilibx/libmlx.a:
 	make -s -C minilibx
 $(NAME): $(OBJ)
 	@$(ECHO) "\033[0;34m--------------------------------"
-	$(CC)  -o $(NAME) $(WFLAGS) $(OBJ) $(CFLAGS) $(LIBDIRS) $(addprefix -l,$(LIBS)) $(INCDIRS) $(SUPF) $(SUPL)
+	@$(CC)  -o $(NAME) $(WFLAGS) $(OBJ) $(CFLAGS) $(LIBDIRS) $(addprefix -l,$(LIBS)) $(INCDIRS) $(SUPF) $(SUPL)
 	@$(ECHO) "\033[0;31m[✓] Linked C executable" $(NAME)
 clean:
 	@/bin/rm -rf $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 18:41:44 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/01/27 16:58:08 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/02/01 02:52:55 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 # define MLX_H
 
 # include "gfx.h"
+# include "lsys.h"
 
 typedef struct s_graphics	t_graphics;
-typedef void (*t_drawfun) (t_graphics *);
 typedef struct	s_display t_display;
+
+typedef void (*t_drawfun) (t_display *);
 
 typedef void (*t_inputfun) (t_display *);
 
@@ -29,6 +31,7 @@ typedef struct	s_display
 	t_graphics	*g;
 	t_drawfun	paint;
 	t_inputfun	input;
+	t_lsys		*system;
 }				t_display;
 
 void			*mlx_init();

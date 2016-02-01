@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 19:28:59 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/01/27 16:51:53 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/02/01 04:04:34 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 
 void		run_display(t_display *d)
 {
-	d->paint(d->g);
+	d->paint(d);
 	mlx_loop(d->conn);
 }
 
 int			disp_loop(t_display *d)
 {
-	d->paint(d->g);
+	d->paint(d);
 	return (0);
 }
 
