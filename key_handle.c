@@ -76,13 +76,14 @@ t_keybind g_binds[] =
 	{'\'', 39 }, {'k', 40 }, {'\0', 41 }, {'\\', 42 }, {'\0', 43 },
 	{'\0', 44 }, {'n', 45 }, {'m', 46 }
 };
-
+#include <stdio.h>
 int			disp_key_pressed(int key)
 {
 	g_key_states[key] = 1;
 	return (0);
 }
 
+#ifndef __linux__
 static int key_idx(int k)
 {
 	int i;
@@ -95,12 +96,13 @@ static int key_idx(int k)
 			++i;
 	return (-1);
 }
+#endif
 
 int			is_key_pressed(int key)
 {
-	int i;
-
-	if (ft_isalpha(key) && (i = key_idx(key)) != -1)
+#ifndef __linux__
+	if (ft_isalpha(key) && (key = key_idx(key)) != -1)
 		return (g_key_states[i]);
+#endif
 	return (g_key_states[key]);
 }

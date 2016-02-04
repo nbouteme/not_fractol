@@ -60,6 +60,7 @@ void			set_angle(t_lsys *self, int angle);
 void			add_rule(t_lsys *self, char symbol, const char *rule);
 void			add_ruledir(t_lsys *self, t_lrule *r);
 char			*get_command_string(t_lsys *self, int it);
+t_dlisthead		*make_draw_list(t_lsys *self, char *r);
 void			del_system(t_lsys *lsys);
-int			find_rule(t_dlist *elem, char *d);
+int				find_rule(t_dlist *elem, char *d);
 #endif

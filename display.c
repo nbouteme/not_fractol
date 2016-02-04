@@ -25,7 +25,6 @@ int			disp_expose(t_display *d)
 
 int			disp_handle_key(t_display *d)
 {
-	disp_expose(d);
 	d->input(d);
 	return (0);
 }

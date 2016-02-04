@@ -26,7 +26,7 @@ typedef struct	s_fracparams
 	float	iy;
 }				t_fracparams;
 
-typedef int	(*t_dfrac)(t_display *, t_fracparams);
+typedef void	(*t_dfrac)(t_display *, t_fracparams);
 
 static int selected = 0;
 static int n = 30;
@@ -41,8 +41,85 @@ int i_to_rgb(int x)
 }
 
 #include <stdio.h>
+#include "lsys.h"
+#include "vmath.h"
 
-int	julia(t_display *d, t_fracparams params)
+t_dlist *transform_dcs(t_dlist *elem, t_mat3 m)
+{
+	t_drawcall *v;
+	t_drawcall ret;
+	t_cvec3 t;
+
+	v = elem->content;
+	t = mat3_m_vec3(m, &(float[]) {v->from.w, v->from.h, 1.0});
+	ret.from.w = (*t)[0];
+	ret.from.h = (*t)[1];
+	mat3_m_vec3(m, &(float[]) {v->to.w, v->to.h, 1.0});
+	ret.to.w = (*t)[0];
+	ret.to.h = (*t)[1];
+	return (ftext_lstnewelem(&ret, sizeof(ret)));
+}
+
+void pl(t_dlist *e)
+{
+	t_drawcall *v = e->content;
+	printf("[%d, %d] -> [%d, %d]\n", v->from.w, v->from.h,
+		   v->to.w, v->to.h);
+}
+
+void print_cmdlist(t_dlisthead *dcs)
+{
+	ftext_lstiter(dcs, (void*)&pl);
+}
+
+static void draw_list(t_dlisthead *dcs, t_display *d)
+{
+	t_dlist *s;
+	t_dlist *e;
+
+	s = dcs->next;
+	e = dcs->next->prev;
+	clear_graphics(d->g);
+	while (s != e)
+	{
+		draw_line(d->g,
+				  ((t_drawcall*)s->content)->from,
+				  ((t_drawcall*)s->content)->to);
+		s = s->next;
+	}
+	present(d->g);
+	mlx_do_sync(d->conn);
+	usleep(16000);
+}
+
+void	custom(t_display *d, t_fracparams params)
+{
+	static t_dlisthead *dcs = 0;
+	static int oldn = 0;
+	char *r;
+	t_dlisthead *tdcs;
+
+	(void)params;
+	d->g->color = 0x00FFFFFF;
+	if (oldn != n)
+	{
+		oldn = n;
+		free(dcs);
+		r = get_command_string(d->system, n / 10 + 1);
+		dcs = make_draw_list(d->system, r);
+		free(r);
+	}
+	tdcs = ftext_lstmapup(dcs, (void*)&transform_dcs, &(float[3][3])
+						  {
+							  {zoom / 42, 0, -offset[0] * 21},
+							  {0, zoom / 42, -offset[1] * 21},
+							  {0, 0, 1}
+						  });
+	draw_list(tdcs, d);
+	ftext_lstdel(&tdcs, 0);
+}
+
+void	julia(t_display *d, t_fracparams params)
 {
 	COMPLEX c;
 	COMPLEX z;
@@ -66,10 +143,9 @@ int	julia(t_display *d, t_fracparams params)
 			d->g->color = i < n ? i_to_rgb(i) : 0;
 			draw_point(d->g, (t_point){x, y});
 		}
-	return (i);
 }
 
-int mandel(t_display *d, t_fracparams params)
+void mandel(t_display *d, t_fracparams params)
 {
 	COMPLEX c;
 	COMPLEX z;
@@ -92,12 +168,11 @@ int mandel(t_display *d, t_fracparams params)
 			d->g->color = i < n ? i_to_rgb(i) : 0;
 			draw_point(d->g, (t_point){x, y});
 		}
-	return (i);
 }
 
 void draw_fractal(t_display *d)
 {
-	const t_dfrac	fractals[] = { &mandel, &julia };
+	const t_dfrac	fractals[] = { &mandel, &julia, &custom };
 
 	fractals[selected](d, (t_fracparams)
 	{
@@ -122,6 +197,11 @@ void handle_input(t_display *d)
 		selected = 0;
 	if (is_key_pressed('j'))
 		selected = 1;
+	if (d->system && is_key_pressed('c'))
+	{
+		n = 3;
+		selected = 2;
+	}
 	d->paint(d);
 	present(d->g);
 }

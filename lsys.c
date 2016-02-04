@@ -51,10 +51,7 @@ char	*expand_into(t_lsys *self, char *input, char *out)
 			n += ft_strlen(r->expansion);
 		}
 		else
-		{
-			out[n] = *input;
-			++n;
-		}
+			out[n++] = *input;
 		++input;
 	}
 	return (out);
@@ -73,7 +70,7 @@ char	*get_command_string(t_lsys *self, int it)
 	{
 		nsize = expanded_size(self, result);
 		tmp = result;
-		result = expand_into(self, result, malloc(nsize + 1));
+		result = expand_into(self, result, ft_memalloc(nsize + 1));
 		free(tmp);
 	}
 	return (result);

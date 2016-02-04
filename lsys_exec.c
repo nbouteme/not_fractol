@@ -13,22 +13,40 @@
 #include "lsys.h"
 #include <math.h>
 
-static void	rotate(t_point *dir, float angle)
+typedef struct	s_fpoint
 {
-	int tmpx;
+	float w;
+	float h;
+}				t_fpoint;
 
-	tmpx = dir->w;
-	dir->w = dir->w * cos(angle) + dir->h * sin(angle);
-	dir->h = -tmpx * sin(angle) + dir->h * cos(angle);
+static void	rotate(t_fpoint *dir, float angle)
+{
+	float x;
+	float y;
+	float tmpx;
+	float n;
+
+	x = dir->w;
+	y = dir->h;
+	tmpx = x;
+	x = x * cos(angle) + y * sin(angle);
+	y = -tmpx * sin(angle) + y * cos(angle);
+	n = sqrt(x * x + y * y);
+	x /= n;
+	x *= 420;
+	y /= n;
+	y *= 420;
+	dir->w = x;
+	dir->h = y;
 }
 
 t_dlisthead	*make_draw_list(t_lsys *self, char *r)
 {
-	t_point		dir;
+	t_fpoint	dir;
 	t_dlisthead	*ret;
 
 	ret = ftext_lstnew();
-	dir = (t_point) { 0, 10 };
+	dir = (t_fpoint) { 0, 420 };
 	while (*r)
 	{
 		if (*r == '+')
@@ -39,12 +57,13 @@ t_dlisthead	*make_draw_list(t_lsys *self, char *r)
 		{
 			ftext_lstpush_back(ret, ftext_lstnewelem(&(t_drawcall) {
 						self->pos,
-						(t_point) {	self->pos.w + dir.w, self->pos.h + dir.h }
+						(t_point) { dir.w + self->pos.w, dir.h + self->pos.h }
 					}, sizeof(t_drawcall)));
-			self->pos.w += dir.w;
-			self->pos.h += dir.h;
+			self->pos.w += round(dir.w);
+			self->pos.h += round(dir.h);
 		}
 		++r;
 	}
+	self->pos = (t_point){0, 0};
 	return (ret);
 }

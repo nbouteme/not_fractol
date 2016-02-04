@@ -41,5 +41,6 @@ t_graphics					*new_graphics(t_display *d);
 unsigned					get_pixel(t_graphics *g, t_point pos);
 void						present(t_graphics *g);
 void						clear_graphics(t_graphics *g);
+void						draw_line(t_graphics *g, t_point a, t_point b);
 
 #endif
