@@ -6,18 +6,12 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 23:54:42 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/01 04:11:11 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/02/05 02:11:45 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lsys.h"
 #include <math.h>
-
-typedef struct	s_fpoint
-{
-	float w;
-	float h;
-}				t_fpoint;
 
 static void	rotate(t_fpoint *dir, float angle)
 {

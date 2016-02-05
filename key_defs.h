@@ -6,15 +6,20 @@
 /*   By: nbouteme <nbouteme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 17:52:07 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/01/27 16:56:57 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/02/05 02:07:26 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_DEFS_H
 # define KEY_DEFS_H
 
+#include "mlx.h"
+
 # ifdef __linux__
 #  include <X11/keysym.h>
+#  include <X11/Xlib.h>
+#  include <X11/Xutil.h>
+#  include <X11/extensions/XShm.h>
 #  define ESCAPE XK_Escape
 #  define LEFT XK_Left
 #  define RIGHT XK_Right
@@ -22,6 +27,12 @@
 #  define DOWN XK_Down
 #  define KP_ADD XK_KP_Add
 #  define KP_SUBTRACT XK_KP_Subtract
+#  define KRM KeyReleaseMask
+#  define KR KeyRelease
+#  define KPM KeyPressMask
+#  define KP KeyPress
+#  define PMM PointerMotionMask
+#  define MN MotionNotify
 # else
 #  define ESCAPE 53
 #  define LEFT 123
@@ -30,6 +41,18 @@
 #  define DOWN 125
 #  define KP_ADD 69
 #  define KP_SUBTRACT 78
+#  define KRM 2
+#  define KR 3
+#  define KPM 1
+#  define KP 2
+#  define PMM (1 << 6)
+#  define MN 6
 # endif
+
+typedef struct	s_keybind
+{
+	char c;
+	int idx;
+}				t_keybind;
 
 #endif

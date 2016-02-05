@@ -6,17 +6,17 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 18:55:38 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/01/13 18:56:30 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/02/05 01:58:40 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GRAPHICS_H
 # define GRAPHICS_H
 
+# include "gfx.h"
+
 typedef struct s_display	t_display;
 typedef struct s_point	t_point;
-
-# include "gfx.h"
 
 t_graphics		*new_graphics(t_display *d);
 int				is_outside(t_graphics *g, t_point a);

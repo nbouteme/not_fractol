@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 23:20:18 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/01 03:34:40 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/02/05 02:11:53 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ typedef struct	s_sizecalc
 	char		*expr;
 	const char	*user;
 }				t_sizecalc;
+
+typedef struct	s_fpoint
+{
+	float w;
+	float h;
+}				t_fpoint;
 
 typedef struct	s_drawcall
 {

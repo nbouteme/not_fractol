@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 18:41:44 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/01 02:52:55 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/02/05 02:10:12 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,25 @@
 # include "gfx.h"
 # include "lsys.h"
 
-typedef struct s_graphics	t_graphics;
-typedef struct	s_display t_display;
+struct s_graphics;
+struct s_display;
 
-typedef void (*t_drawfun) (t_display *);
-
-typedef void (*t_inputfun) (t_display *);
+typedef void	(*t_drawfun) (struct s_display *);
+typedef void	(*t_inputfun) (struct s_display *);
 
 typedef struct	s_display
 {
-	void		*conn;
-	void		*win;
-	t_point		dim;
-	t_graphics	*g;
-	t_drawfun	paint;
-	t_inputfun	input;
-	t_lsys		*system;
+	void				*conn;
+	void				*win;
+	t_point				dim;
+	struct s_graphics	*g;
+	t_drawfun			paint;
+	t_inputfun			input;
+	t_lsys				*system;
+	int					sel;
+	int					n;
+	float				offset[2];
+	float				zoom;
 }				t_display;
 
 void			*mlx_init();
@@ -72,7 +75,7 @@ int				mlx_do_sync(void *xvar);
 int				disp_key_released(int key);
 int				disp_key_pressed(int key);
 
-t_display		*new_display();
+t_display		*new_display(void);
 void			run_display(t_display *d);
 int				disp_handle_key(t_display *d);
 int				is_key_pressed(int key);
