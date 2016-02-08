@@ -14,7 +14,7 @@
 
 void		draw_fractal(t_display *d)
 {
-	const t_dfrac	fractals[] = { &mandel, &julia, &custom };
+	const t_dfrac	fractals[] = { &mandel, &julia, &custom, &bato };
 
 	fractals[d->sel](d, (t_fracparams)
 	{

@@ -32,6 +32,7 @@ typedef void	(*t_dfrac)(struct s_display *, t_fracparams);
 
 t_lsys			*parse_lsys(char **file);
 void			mandel(t_display *d, t_fracparams params);
+void			bato(t_display *d, t_fracparams params);
 void			julia(t_display *d, t_fracparams params);
 void			custom(t_display *d, t_fracparams params);
 int				i_to_rgb(int x);
