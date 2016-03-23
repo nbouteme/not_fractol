@@ -46,7 +46,7 @@ t_display	*new_display(void)
 	ret->offset[0] = -0.5f;
 	ret->offset[1] = -0.5f;
 	ret->zoom = 2;
-	ret->sel = 0;
+	ret->sel = 1;
 	set_key_handlers(ret);
 	mlx_loop_hook(ret->conn, &event_loop, ret);
 	mlx_expose_hook(ret->win, &disp_expose, ret);

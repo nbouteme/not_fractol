@@ -12,7 +12,17 @@
 
 #include "fracts.h"
 
-void		mandel(t_display *d, t_fracparams params)
+typedef struct s_mandel_param
+{
+	int id;
+	t_display *d;
+	t_fracparams params;
+} t_mandel_param;
+
+#include <pthread.h>
+#include <stdio.h>
+
+void		*mandel2(const t_mandel_param *p)
 {
 	COMPLEX c;
 	COMPLEX z;
@@ -20,9 +30,12 @@ void		mandel(t_display *d, t_fracparams params)
 	int		y;
 	int		i;
 
-	x = -1;
-	while (++x < 420 && (y = -1))
-		while (++y < 420)
+	int id = p->id;
+	t_display *d = p->d;
+	t_fracparams params = p->params;
+	y = 105 * id - 1;
+	while (++y < 105 * (id + 1) && (x = -1))
+		while (++x < 420)
 		{
 			c = ((float)(x - 210) / (d->zoom * 210) + d->offset[0]) +
 				((float)(y - 210) / (d->zoom * 210) + d->offset[1]) * I;
@@ -36,4 +49,28 @@ void		mandel(t_display *d, t_fracparams params)
 			d->g->color = i < d->n ? i_to_rgb(i) : 0;
 			draw_point(d->g, (t_point){x, y});
 		}
+	return 0;
+}
+
+
+void		mandel(t_display *d, t_fracparams params)
+{
+	t_mandel_param p[4];
+	pthread_t th[3];
+	int i;
+
+	i = 0;
+	p[0] = p[1] = p[2] = p[3] = (t_mandel_param){0, d, params};
+	p[1].id = 1;
+	p[2].id = 2;
+	p[3].id = 3;
+	while(i < 3)
+	{
+		pthread_create(&th[i], 0, (void*)mandel2, p + i);
+		++i;
+	}
+	mandel2(p + 3);
+	i = 0;
+	while(i < 3)
+		pthread_join(th[i++], 0);
 }

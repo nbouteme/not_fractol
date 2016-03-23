@@ -44,13 +44,15 @@ void		handle_input(t_display *d)
 		d->sel = 0;
 	if (is_key_pressed('j'))
 		d->sel = 1;
+	if (is_key_pressed('b'))
+		d->sel = 3;
 	if (d->system && is_key_pressed('c'))
 	{
 		d->n = 3;
 		d->sel = 2;
 	}
 	d->paint(d);
-	present(d->g);
+	disp_expose(d);
 }
 
 static void	init_lsys(t_display *d, char *fn)

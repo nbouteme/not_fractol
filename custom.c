@@ -15,7 +15,6 @@
 void		draw_fractal(t_display *d)
 {
 	const t_dfrac	fractals[] = { &mandel, &julia, &custom, &bato };
-
 	fractals[d->sel](d, (t_fracparams)
 	{
 		(float)get_mouse_pos().w / 420,
