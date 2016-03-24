@@ -1,0 +1,18 @@
+- Changement du nombre d'iteration
+- Deplacement avec les fleches
+- Changement de fractale sur le tas
+- Interpreteur de systeme de Lindenmayer
+- Calcul parralele sur Mandelbrot
+
+- fractales suppelemtaires : 
+	- carre de shepluki
+	- dragon
+	- seconde version du dragon
+	- flocon de sierpinsky
+	- seconde version du flocon, avec des pentagones
+	- courbe de koch
+	- triangle de sierpinsky
+	- seconde version du triangle
+	- tapis de sierpinsky
+	- seconde version du tapis
+	- triangle de shepluki

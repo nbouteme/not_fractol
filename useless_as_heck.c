@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 19:28:59 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/05 02:10:04 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 03:11:56 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_display	*new_display(void)
 	ret->offset[1] = -0.5f;
 	ret->zoom = 2;
 	ret->sel = 1;
+	ret->can_move = 1;
 	set_key_handlers(ret);
 	mlx_loop_hook(ret->conn, &event_loop, ret);
 	mlx_expose_hook(ret->win, &disp_expose, ret);

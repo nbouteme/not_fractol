@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/01 04:41:09 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/03/24 02:18:42 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 03:17:38 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			handle_mouse(int button, int x, int y, t_display *d)
 	return (0);
 }
 
-static void	init_lsys(t_display *d, char *fn)
+static void	*init_lsys(char *fn)
 {
 	int		fd;
 	char	*f;
@@ -88,23 +88,33 @@ static void	init_lsys(t_display *d, char *fn)
 
 	fd = open(fn, O_RDONLY);
 	if (fd == -1)
+	{
 		print_help();
+		exit(2);
+	}
 	f = readfile(fd, &check_input);
 	if (!f)
 		assert(0);
 	array = ft_strsplit(f, '\n');
-	d->system = parse_lsys(array);
+	return (parse_lsys(array));
 }
 
 int			main(int argc, char *argv[])
 {
-	t_display *d;
+	t_display	*d;
+	void		*sys;
+	int			lim;
 
-	if (argc > 2 || contains("-h", argv))
+	lim = (2 + contains("c", argv)) * !contains("-h", argv);
+	sys = 0;
+	if (argc != lim || ft_strlen(argv[1]) != 1
+		|| ft_strindexof("mjbc", argv[1][0]) == -1)
 		print_help();
+	if (argc == 3)
+		sys = init_lsys(argv[2]);
 	d = new_display();
-	if (argc == 2)
-		init_lsys(d, argv[1]);
+	d->sel = ft_strindexof("mjcb", argv[1][0]);
+	d->system = sys;
 	d->paint = draw_fractal;
 	d->input = handle_input;
 	run_display(d);
