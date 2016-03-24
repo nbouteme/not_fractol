@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 02:04:04 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/05 02:14:01 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 01:31:30 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	key_idx(int k)
 
 	i = 0;
 	while (i < 47)
-		if (g_binds[i].c == k)
-			return (g_binds[i].idx);
+		if (get_binds()[i].c == k)
+			return (get_binds()[i].idx);
 		else
 			++i;
 	return (-1);
@@ -36,15 +36,15 @@ int			is_key_pressed(int key)
 	int i;
 
 	if (ft_isalpha(key) && (i = key_idx(key)) != -1)
-		return (g_key_states[i]);
-	return (g_key_states[key]);
+		return (get_states()[i]);
+	return (get_states()[key]);
 }
 
 #else
 
 int			is_key_pressed(int key)
 {
-	return (g_key_states[key]);
+	return (get_states()[key]);
 }
 
 #endif

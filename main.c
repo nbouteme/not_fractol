@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/01 04:41:09 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/05 01:54:29 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 02:18:42 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void		handle_input(t_display *d)
 	d->offset[0] += is_key_pressed(RIGHT) ? (42.0 / 420) / d->zoom : 0;
 	d->n += is_key_pressed(KP_ADD);
 	d->n -= d->n > 2 ? is_key_pressed(KP_SUBTRACT) : 0;
-	d->zoom *= is_key_pressed('p') ? 1.05 : 1.0;
-	d->zoom /= is_key_pressed('o') ? 1.05 : 1.0;
+	d->zoom *= is_key_pressed('p') ? 1.0f / 1.05f : 1.0f;
+	d->zoom /= is_key_pressed('o') ? 1.0f / 1.05f : 1.0f;
 	if (is_key_pressed('m'))
 		d->sel = 0;
 	if (is_key_pressed('j'))
@@ -53,6 +53,31 @@ void		handle_input(t_display *d)
 	}
 	d->paint(d);
 	disp_expose(d);
+}
+
+int			handle_mouse(int button, int x, int y, t_display *d)
+{
+	float wx;
+	float wy;
+
+	wx = (float)x / 420 - 0.5f;
+	wy = (float)y / 420 - 0.5f;
+	d->can_move ^= button == 1;
+	if (button == 5)
+	{
+		d->offset[0] += (wx / d->zoom) * 0.5f;
+		d->offset[1] += (wy / d->zoom) * 0.5f;
+		d->zoom *= 1.0f / 1.05f;
+	}
+	if (button == 4)
+	{
+		d->offset[0] += (wx / d->zoom) * 0.5f;
+		d->offset[1] += (wy / d->zoom) * 0.5f;
+		d->zoom /= 1.0f / 1.05f;
+	}
+	d->paint(d);
+	disp_expose(d);
+	return (0);
 }
 
 static void	init_lsys(t_display *d, char *fn)

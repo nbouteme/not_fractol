@@ -6,14 +6,14 @@
 /*   By: nbouteme <nbouteme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 17:52:07 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/05 02:07:26 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 02:25:37 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_DEFS_H
 # define KEY_DEFS_H
 
-#include "mlx.h"
+# include "mlx.h"
 
 # ifdef __linux__
 #  include <X11/keysym.h>
@@ -51,8 +51,13 @@
 
 typedef struct	s_keybind
 {
-	char c;
-	int idx;
+	char		c;
+	int			idx;
 }				t_keybind;
+
+const t_keybind	*get_binds();
+int				*get_states();
+t_point			*get_mousepos();
+int				handle_mouse(int button, int x, int y, t_display *d);
 
 #endif

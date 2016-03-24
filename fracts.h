@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 01:28:19 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/05 02:14:47 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 02:25:01 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ typedef struct	s_fracparams
 	float		iy;
 }				t_fracparams;
 
+typedef struct	s_mandel_param
+{
+	int				id;
+	t_display		*d;
+	t_fracparams	params;
+}				t_mandel_param;
+
 typedef void	(*t_dfrac)(struct s_display *, t_fracparams);
 
 t_lsys			*parse_lsys(char **file);
@@ -42,8 +49,6 @@ char			*readfile(int fd, int (*check)(char *));
 int				check_input(char *s);
 void			draw_fractal(t_display *d);
 char			*parse_axiom(char **file);
-
-
 void			assert(int b);
 
 #endif

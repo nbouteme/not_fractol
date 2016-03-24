@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 18:41:44 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/05 02:10:12 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 01:30:25 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_display
 	int					n;
 	float				offset[2];
 	float				zoom;
+	int					can_move;
 }				t_display;
 
 void			*mlx_init();
@@ -81,7 +82,7 @@ int				disp_handle_key(t_display *d);
 int				is_key_pressed(int key);
 void			set_key_handlers(t_display *d);
 int				disp_expose(t_display *d);
-int				disp_mouse_moved(int x, int y);
+int				disp_mouse_moved(int x, int y, t_display *d);
 t_point			get_mouse_pos();
 
 #endif

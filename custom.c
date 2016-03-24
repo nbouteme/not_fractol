@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 01:33:26 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/05 01:44:35 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 02:14:12 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void		draw_fractal(t_display *d)
 {
 	const t_dfrac	fractals[] = { &mandel, &julia, &custom, &bato };
+
 	fractals[d->sel](d, (t_fracparams)
 	{
 		(float)get_mouse_pos().w / 420,

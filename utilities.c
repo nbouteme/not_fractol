@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 01:39:12 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/05 02:11:04 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 02:06:27 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void		print_help(void)
 	ft_putstr(
 		"Usage: ./fractol [-h | lsystemfile]\n" "O/P: Zoom in/out\n"
 		"Arrows: Move the camera\n" "+/-: Increase/Decrease the number"
-		"of iterations\n" "m: Displays the mandelbrot fractal\n" "j:"
-		"Displays the julia fractal\n" "c: displays the custom fractal,"
+		"of iterations\n" "m: Displays the mandelbrot fractal\n" "j: "
+		"Displays the julia fractal\n" "c: Displays the custom fractal,"
 		"as defined by the file " "given as an argument to this"
-		"program\n" "Camera movements may not be available in custom"
-		"mode" "lsystemfile should be the path to a valid lsystem"
+		"program\n" "b: Displays the burning ship fractal\n"
+		"file should be the path to a valid lsystem file"
 		"description\n" "A valid file is a file whose first line is an"
-		"axiom, " "and subsequent lines are rules\n");
+		"axiom, " "followed by an angle, and subsequent lines are rules\n");
 	exit(1);
 }
 

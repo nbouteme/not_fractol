@@ -13,7 +13,7 @@
 NAME = fractol
 OPTS = -flto -O3 -march=native -mtune=native -ffinite-math-only -funsafe-math-optimizations -fno-math-errno -ffast-math
 #OPTS = -g
-SUPL = -lm -Lminilibx -lmlx -pthread
+SUPL = -lm -Lminilibx -lmlx -lpthread
 
 UNAME := $(shell uname)
 

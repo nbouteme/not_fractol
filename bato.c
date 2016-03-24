@@ -6,7 +6,7 @@
 /*   By: nbouteme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 01:32:48 by nbouteme          #+#    #+#             */
-/*   Updated: 2016/02/05 01:49:03 by nbouteme         ###   ########.fr       */
+/*   Updated: 2016/03/24 01:43:42 by nbouteme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		bato(t_display *d, t_fracparams params)
 			i = -1;
 			while (++i < d->n && cabsf(z) < 2.0)
 				z = ((fabsf(crealf(z)) + fabsf(cimagf(z)) * I) *
-					 (fabsf(crealf(z)) + fabsf(cimagf(z)) * I)) + c;
+					(fabsf(crealf(z)) + fabsf(cimagf(z)) * I)) + c;
 			d->g->color = i < d->n ? i_to_rgb(i) : 0;
 			draw_point(d->g, (t_point){x, y});
 		}
